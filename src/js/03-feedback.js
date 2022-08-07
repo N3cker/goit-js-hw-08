@@ -1,6 +1,6 @@
 import throttle from 'lodash.throttle'
 
-const form = document.querySelector('.feedback-form');
+const submitBtn = document.querySelector('[type="submit"]');
 const inputs = document.querySelectorAll('input[name="email"], textarea[name="message"]');
 
 const feedbackFormState = JSON.parse(localStorage.getItem("feedback-form-state"));
@@ -27,7 +27,11 @@ inputs.forEach(input => {
     }, 500))
 })
 
-form.addEventListener('submit', () => {
+submitBtn.addEventListener('click', (event) => {
+    event.preventDefault();
     console.log(formFields);
+    inputs.forEach(input => {
+        input.value = '';
+    })
     localStorage.removeItem("feedback-form-state");
 })
